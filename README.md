@@ -6,7 +6,9 @@
 - `data/all_circRNAs.csv` contains all the circRNAs, corresponding to the rows of the matrix.
 - `data/all_disease.csv` contains all the diseases, corresponding to the columns of the matrix.
 
+
 -  `LNLP_method.py` contains our method function, that is `linear_neighbor_predict`.
+
 
 - `semisupervise.py` contains the method we calculate metrics.
 
