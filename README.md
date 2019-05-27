@@ -1,29 +1,12 @@
-# CD-LNLP
- 
-## Introduction
+# Case Study on Lei's dataSet(the up-to-date dataset)
 
-- `data/association.csv` is the circRNA-disease association matrix.
+## Dataset
+- `data/association.csv` is the up-to-date circRNA-disease association matrix, which contains 650 associations between 603 circRNAs and 88 diseases.
+- `data/all_circRNAs.csv` contains all the circRNAs, corresponding to the rows of the association matrix.
+- `data/all_diseases.csv` is all the diseases, corresponding to the columns of the association matrix.
 
--  `LNLP_methd` contains our method, that is `linear_neighbor_predict`.
+## Run case_study.py
 
-- `semisupervise.py` contains the method we calculate metrics.
+When you run `case_study.py`, you will get the score matrix in the `produced_data` folder. We have produced the score matrix, that is `produced_data/scores.csv`.
 
-- `input_and_output.py` contains methods for input and output.
-
-- `evaluation_result/loocv` contains our method's metrics.
-    - `0.1_0.9_1.0_loo.csv` contains the values of 6 metrics.
-    - `0.1_0.9_1.0_loo_pr_x.csv` contains the values of **recall**.
-    - `0.1_0.9_1.0_loo_pr_y.csv` contains the values of **precision**.
-    - `0.1_0.9_1.0_loo_roc_x.csv` contains the values of **False Positive Rate**.
-    - `0.1_0.9_1.0_loo_roc_y.csv` contains the values of **True Positive Rate**
-
-## Run LOOCV evaluation
-
-### Prerequisites
- - python 3.6
-   
- - In addition, you may need to install some basic python packages.
- 
-### Run LNLP_evaluation.py
-
-You will get the output at `evaluation_result/loocv` folder. We have produced the result in the folder.
+For every disease, the candidate circRNAs are in the text file named for the disease's name in `result/disease` folder.
