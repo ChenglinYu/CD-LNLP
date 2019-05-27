@@ -1,7 +1,7 @@
 # Case Study on Lei's dataSet(the up-to-date dataset)
 
 ## Dataset
-- `data/association.csv` is the up-to-date circRNA-disease association matrix, which contains 650 associations between 603 circRNAs and 88 diseases.
+- `data/association.csv` is the circRNA-disease association matrix,our golden dataset, which contains 331 associations between 312 circRNAs and 40 diseases.
 - `data/all_circRNAs.csv` contains all the circRNAs, corresponding to the rows of the association matrix.
 - `data/all_diseases.csv` is all the diseases, corresponding to the columns of the association matrix.
 
