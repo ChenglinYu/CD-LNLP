@@ -3,7 +3,9 @@
 ## Dataset
 - `data/association.csv` is the up-to-date circRNA-disease association matrix, which contains 650 associations between 603 circRNAs and 88 diseases.
 - `data/all_circRNAs.csv` contains all the circRNAs, corresponding to the rows of the association matrix.
+
 - `data/all_diseases.csv` contains all the diseases, corresponding to the columns of the association matrix.
+
 
 ## Run case_study.py
 
