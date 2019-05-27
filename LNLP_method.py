@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # @Author: chenglinyu
 # @Date  : 2019/3/2
-# @Desc  : CD-LNLP method
+# @Desc  :
 
 import numpy as np
 
