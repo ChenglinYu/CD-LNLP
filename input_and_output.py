@@ -1,5 +1,4 @@
 # -*- coding: utf8 -*-
-
 import numpy as np
 import pandas as pd
 import csv
@@ -12,7 +11,7 @@ def matrix_to_csv(matrix, file_name):
     arrays_frame.to_csv(file_name, header=None, index=None)
 
 
-# output evaluation result to file
+# write evaluation result to file
 def output_evaluation_result(evalutaion_result, file_name):
     with open(file_name, "w") as csvfile:
         writer = csv.writer(csvfile)
