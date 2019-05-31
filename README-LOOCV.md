@@ -2,17 +2,11 @@
  
 ## Introduction
 
-- `data/association.csv` is the circRNA-disease association matrix.
-- `data/all_circRNAs.csv` contains all the circRNAs, corresponding to the rows of the matrix.
-- `data/all_disease.csv` contains all the diseases, corresponding to the columns of the matrix.
-
+- `Dataset1/association.csv` is the circRNA-disease association matrix.
+- `Dataset1/all_circRNAs.csv` contains all the circRNAs, corresponding to the rows of the matrix.
+- `Dataset1/all_disease.csv` contains all the diseases, corresponding to the columns of the matrix.
 
 -  `LNLP_method.py` contains our method function, that is `linear_neighbor_predict`.
-
-
-- `semisupervise.py` contains the method we calculate metrics.
-
-- `input_and_output.py` contains methods for input and output.
 
 - `evaluation_result/loocv` contains our method's metrics.
     - `0.1_0.9_1.0_loo.csv` contains the values of 6 metrics.

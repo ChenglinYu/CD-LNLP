@@ -3,11 +3,26 @@
 # @Date  : 2019/3/2
 # @Desc  : CD-LNLP LOOCV evaluation
 
+import LNLP_method
 import numpy as np
 import pandas as pd
-import input_and_output
-import LNLP_method
-import semisupervise
+import csv
+
+
+# write matrix to csv file
+def matrix_to_csv(matrix, file_name):
+    arrays = np.array(matrix)
+    arrays_frame = pd.DataFrame(arrays)
+    arrays_frame.to_csv(file_name, header=None, index=None)
+
+
+# write evaluation result to file
+def output_evaluation_result(evaluation_result, file_name):
+    with open(file_name, "w") as csvfile:
+        writer = csv.writer(csvfile)
+        # write columns_name
+        writer.writerow(["aupr", "auc", "f1_score", "accuracy", "recall", "specificity", "precision"])
+        writer.writerow(evaluation_result)
 
 
 def get_leave_one_out_result(association_data, alpha, neighbor_rate, weight, roc_x_path, roc_y_path, pr_x_path,
@@ -32,14 +47,74 @@ def get_leave_one_out_result(association_data, alpha, neighbor_rate, weight, roc
                                                                neighbor_rate, weight)
             predict_matrix[np.where(association_matrix == 0)] = score_matrix[np.where(association_matrix == 0)]
 
-    metrics = semisupervise.loo_model_evaluate(association_matrix, predict_matrix, roc_x_path, roc_y_path, pr_x_path,
-                                               pr_y_path)
+    metrics = loo_model_evaluate(association_matrix, predict_matrix, roc_x_path, roc_y_path, pr_x_path,
+                                 pr_y_path)
     print(metrics)
     return metrics
 
 
+def loo_model_evaluate(interaction_matrix, predict_matrix, roc_x_path, roc_y_path, pr_x_path, pr_y_path):
+    real_score = np.matrix(np.array(interaction_matrix).flatten())
+    predict_score = np.matrix(np.array(predict_matrix).flatten())
+    metrics = get_metrics(real_score, predict_score, roc_x_path, roc_y_path, pr_x_path, pr_y_path)
+    return metrics
+
+
+def get_metrics(real_score, predict_score, roc_x_path, roc_y_path, pr_x_path, pr_y_path):
+    sorted_predict_score = np.array(sorted(list(set(np.array(predict_score).flatten()))))  # 进行了去除重复
+    sorted_predict_score_num = len(sorted_predict_score)
+    thresholds = sorted_predict_score[np.int32(sorted_predict_score_num * np.array(range(1, 1000)) / 1000)]
+    thresholds = np.mat(thresholds)
+    thresholds_num = thresholds.shape[1]
+
+    predict_score_matrix = np.tile(predict_score, (thresholds_num, 1))
+    negative_index = np.where(predict_score_matrix < thresholds.T)
+    positive_index = np.where(predict_score_matrix >= thresholds.T)
+    predict_score_matrix[negative_index] = 0
+    predict_score_matrix[positive_index] = 1
+
+    TP = predict_score_matrix * real_score.T
+    FP = predict_score_matrix.sum(axis=1) - TP
+    FN = real_score.sum() - TP
+    TN = len(real_score.T) - TP - FP - FN
+
+    fpr = FP / (FP + TN)
+    tpr = TP / (TP + FN)
+    ROC_dot_matrix = np.mat(sorted(np.column_stack((fpr, tpr)).tolist())).T
+    ROC_dot_matrix.T[0] = [0, 0]
+    ROC_dot_matrix = np.c_[ROC_dot_matrix, [1, 1]]
+    x_ROC = ROC_dot_matrix[0].T
+    y_ROC = ROC_dot_matrix[1].T
+    matrix_to_csv(x_ROC, roc_x_path)
+    matrix_to_csv(y_ROC, roc_y_path)
+    auc = 0.5 * (x_ROC[1:] - x_ROC[:-1]).T * (y_ROC[:-1] + y_ROC[1:])
+
+    recall_list = tpr
+    precision_list = TP / (TP + FP)
+    PR_dot_matrix = np.mat(sorted(np.column_stack((recall_list, precision_list)).tolist())).T
+    PR_dot_matrix.T[0] = [0, 1]
+    PR_dot_matrix = np.c_[PR_dot_matrix, [1, 0]]
+    x_PR = PR_dot_matrix[0].T
+    y_PR = PR_dot_matrix[1].T
+    matrix_to_csv(x_PR, pr_x_path)
+    matrix_to_csv(y_PR, pr_y_path)
+    aupr = 0.5 * (x_PR[1:] - x_PR[:-1]).T * (y_PR[:-1] + y_PR[1:])
+
+    f1_score_list = 2 * TP / (len(real_score.T) + TP - TN)
+    accuracy_list = (TP + TN) / len(real_score.T)
+    specificity_list = TN / (TN + FP)
+
+    max_index = np.argmax(f1_score_list)
+    f1_score = f1_score_list[max_index, 0]
+    accuracy = accuracy_list[max_index, 0]
+    specificity = specificity_list[max_index, 0]
+    recall = recall_list[max_index, 0]
+    precision = precision_list[max_index, 0]
+    return [aupr[0, 0], auc[0, 0], f1_score, accuracy, recall, specificity, precision]
+
+
 if __name__ == '__main__':
-    association_data = pd.read_csv('data/association.csv', header=None).values
+    association_data = pd.read_csv('Dataset1/association.csv', header=None).values
     result_files = {}
 
     alphas = np.linspace(0.1, 1.0, 10, dtype="float32")
@@ -91,4 +166,4 @@ if __name__ == '__main__':
                                        alpha, neighbor_rate, weight, result_files[loo_roc_x], result_files[loo_roc_y],
                                        result_files[loo_pr_x], result_files[loo_pr_y])
 
-    input_and_output.output_evaluation_result(metrics, result_files[loo_metrics_key])
+    output_evaluation_result(metrics, result_files[loo_metrics_key])
