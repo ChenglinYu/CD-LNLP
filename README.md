@@ -15,7 +15,7 @@ Dataset and Code for "Predicting CircRNA-disease Associations through Linear Nei
 # Code
 
 
-- `case_study.py`  calculates score matrices of case studies on Dataset1 and Dataset2 respectively.
+- `case_study.py`  calculates score matrices of case studies on `Dataset1` and `Dataset2` respectively.
 
 -  `LNLP_method.py` contains our method function, that is `linear_neighbor_predict`.
 
