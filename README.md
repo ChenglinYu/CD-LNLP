@@ -12,11 +12,13 @@
 
 # Code
 
+
 - `case_study.py`  calculates score matrix of case studies on two datasets respectively.
 
 -  `LNLP_method.py` contains our method function, that is `linear_neighbor_predict`.
 
 - `LNLP_evaluation.py` implements LOOCV of CD-LNLP on Dataset1.
+
 
 
 # Result
