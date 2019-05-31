@@ -1,4 +1,4 @@
-Dataset and Code for "Predicting CircRNA-disease Associations through Linear Neighborhood Label Propagation Method".
+Dataset and Code for "Predicting CircRNA-disease Associations through Linear Neighborhood Label Propagation Method"
 
 # Dataset
 
