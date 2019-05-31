@@ -3,6 +3,7 @@
 # @Date  : 2019/3/2
 # @Desc  : CD-LNLP method
 
+
 import numpy as np
 
 
@@ -75,6 +76,7 @@ def linear_neighbor_predict(train_matrix, alpha, neighbor_rate, circRNA_weight):
     w_rna_eye = np.eye(rna_number)
     w_disease_eye = np.eye(disease_number)
     temp0 = w_rna_eye - alpha * w_rna
+
     try:
         temp1 = np.linalg.inv(temp0)
     except Exception:
