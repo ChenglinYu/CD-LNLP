@@ -36,7 +36,8 @@
     For every disease in Dataset2, the candidate circRNAs are in the text file named as the disease's name in `Dataset2_result/disease` folder in descending order of score.
 
 - `evaluation_result/loocv`
- `evaluation_result/loocv` contains our method's metrics.
+
+    `evaluation_result/loocv` contains our method's metrics.
     - `0.1_0.9_1.0_loo.csv` contains the values of 6 metrics.
     - `0.1_0.9_1.0_loo_pr_x.csv` contains the values of **recall**.
     - `0.1_0.9_1.0_loo_pr_y.csv` contains the values of **precision**.
