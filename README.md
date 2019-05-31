@@ -35,7 +35,7 @@ Dataset and Code for "Predicting CircRNA-disease Associations through Linear Nei
 
 - `Dataset2_result/disease`
 
-    For every disease in Dataset2, the candidate circRNAs are in the text file named as the disease's name in `Dataset2_result/disease` folder in descending order of score.
+    For every disease in `Dataset2`, the candidate circRNAs are in the text file named as the disease's name in `Dataset2_result/disease` folder in descending order of score.
 
 - `evaluation_result/loocv`
 
