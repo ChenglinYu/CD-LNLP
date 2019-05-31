@@ -6,17 +6,19 @@
 - `Dataset1/all_diseases.csv` contains all the diseases, corresponding to the columns of the association matrix.
 
 ## Dataset2
-- `Dataset2/association.csv` is the up-to-date circRNA-disease association matrix, which contains 650 associations between 603 circRNAs and 88 diseases.
+- `Dataset2/association.csv` is the circRNA-disease association matrix of Dataset2, which contains 650 associations between 603 circRNAs and 88 diseases.
 - `Dataset2/all_circRNAs.csv` contains all the circRNAs, corresponding to the rows of the association matrix.
 - `Dataset2/all_diseases.csv` contains all the diseases, corresponding to the columns of the association matrix.
 
 # Code
+
 
 - `case_study.py`  calculates score matrix of case studies on two datasets respectively.
 
 -  `LNLP_method.py` contains our method function, that is `linear_neighbor_predict`.
 
 - `LNLP_evaluation.py` implements LOOCV of CD-LNLP on Dataset1.
+
 
 
 # Result
